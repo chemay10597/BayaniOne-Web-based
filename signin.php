@@ -1,4 +1,5 @@
 <?php
+    //code to check login user
     session_start();
     if(isset($_SESSION["username"])){
         header('location:home.php');
@@ -36,39 +37,40 @@
        <input type="submit" value="Login" name="submit" />
      </form>
   <?php
-  if(isset($_POST["submit"]))
-  {
-  if(!empty($_POST['username']) && !empty($_POST['password']))
-  {
-      $username=$_POST['username'];
-      $password=$_POST['password'];
-      $connect=mysqli_connect('localhost','root','','bayanione_db') or die(mysqli_error());
-      $result=mysqli_query($connect, "SELECT username, password FROM users WHERE username='".$username."' AND password='".$password."'");
-      $numrows=mysqli_num_rows($result);
-      if($numrows!=0)
+    //code to validate and login users
+    if(isset($_POST["submit"]))
+    {
+      if(!empty($_POST['username']) && !empty($_POST['password']))
       {
-      while($row=mysqli_fetch_assoc($result))
-      {
-      $dbusername=$row['username'];
-      $dbpassword=$row['password'];
-      }
+          $username=$_POST['username'];
+          $password=$_POST['password'];
+          $connect=mysqli_connect('localhost','root','','bayanione_db') or die(mysqli_error());
+          $result=mysqli_query($connect, "SELECT username, password FROM users WHERE username='".$username."' AND password='".$password."'");
+          $numrows=mysqli_num_rows($result);
+          if($numrows!=0)
+          {
+            while($row=mysqli_fetch_assoc($result))
+          {
+          $dbusername=$row['username'];
+          $dbpassword=$row['password'];
+          }
 
-      if($username == $dbusername && $password == $dbpassword)
-      {
-      session_start();
-      $_SESSION['username']=$username;
+          if($username == $dbusername && $password == $dbpassword)
+          {
+            session_start();
+            $_SESSION['username']=$username;
 
-      /* Redirect browser */
-      header("Location: home.php");
-      }
+            /* Redirect browser */
+            header("Location: home.php");
+          }
+          } else {
+            echo "username and password does not match!";
+          }
+
       } else {
-      echo "username and password does not match!";
-      }
-
-  } else {
-      echo "All fields are required!";
+          echo "All fields are required!";
+        }
     }
-  }
   ?>
   </body>
 </html>

@@ -1,4 +1,5 @@
 <?php
+    //code to check login user
     session_start();
     if(isset($_SESSION["username"])){
         header('location:home.php');
@@ -10,8 +11,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Sign Up</title>
   <script type="text/javascript" src="Library/jquery.min.js"></script>
-<!-- script to choose account type -->
+  <!-- script to choose account type -->
   <script type="text/javascript">
+    //code to display textboxes based on the account_type
     $(document).ready(function(){
       $('#account_type').on('change', function() {
         if ( this.value == 'individual')
@@ -36,21 +38,22 @@
       </br>
       <fieldset>
         <?php
-        $connect=mysqli_connect("localhost","root","","bayanione_db");
-        // Check connection
-        if (mysqli_connect_errno())
-        {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
-        $result = mysqli_query($connect,"SELECT MAX(user_id) FROM users GROUP BY user_id");
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_array($result)){
-                $next = $row['MAX(user_id)'] + 1;
-            }
-            echo "<input value='". $next ."' type='hidden' name='user_id' id='user_id'>";
-            echo "</input>";
-        }
-        mysqli_close($connect);
+          //code to get user_id
+          $connect=mysqli_connect("localhost","root","","bayanione_db");
+          // Check connection
+          if (mysqli_connect_errno())
+          {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+          }
+          $result = mysqli_query($connect,"SELECT MAX(user_id) FROM users GROUP BY user_id");
+          if(mysqli_num_rows($result) > 0){
+              while($row = mysqli_fetch_array($result)){
+                  $next = $row['MAX(user_id)'] + 1;
+              }
+              echo "<input value='". $next ."' type='hidden' name='user_id' id='user_id'>";
+              echo "</input>";
+          }
+          mysqli_close($connect);
         ?>
       <label>Type of account:</label>
       <select class="input" id="account_type" name="account_type" value="" Height="22px" Width="187px">
@@ -127,7 +130,8 @@
         <input type="file" id="user_photo" name="user_photo" accept="image/*" onchange="readURL(this);" required/>
         <!-- script to display image on select -->
         <script>
-        function readURL(input) {
+        //script code to display photo during selection
+          function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
@@ -182,8 +186,10 @@
 
     <?php include 'databaseconn.php' ?>
     <?php
+      //code to insert records in users table, individual_user table, and organization_user table
       if(isset($_POST['registerUser']))
       {
+        //variables
         $user_id = $_POST['user_id'];
         $account_type = $_POST['account_type'];
         $first_name = $_POST['first_name'];
@@ -213,6 +219,7 @@
                     echo "Not Added!";
                   }
         }
+        //code to insert records individual_user table
         if($account_type=='individual'){
         mysqli_query($connect, "INSERT INTO individual_user (user_id,first_name,last_name,middle_name,birthdate)
                     VALUES('$user_id','$first_name','$last_name','$middle_name','$birthdate')");
@@ -223,6 +230,7 @@
                     echo "Not Added!";
                   }
       }
+      //code to insert records organization_user table
       else if($account_type=='organization'){
       mysqli_query($connect, "INSERT INTO organization_user (user_id,org_name,rep_name)
                   VALUES('$user_id','$org_name','$rep_name')");
