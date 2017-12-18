@@ -2,5 +2,5 @@
   session_start();
   unset($_SESSION['user_id']);
   session_destroy();
-  header("location:signin.php");
+  header("location:signup.php");
 ?>
