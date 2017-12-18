@@ -50,13 +50,15 @@
           <!-- <a class="navbar-brand" href="index.html">BayaniOne<span>.</span></a> -->
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
-            <form action="" method="POST">
-              <ul class="nav navbar-nav navbar-right">
-                <li><input style="border: 2px solid red;border-radius: 4px;" type="text" name="username"></li>
-                <li><input style="border: 2px solid red;border-radius: 4px;" type="password" name="password"></li>
-                <li><input class="btn-signup" type="submit" value="Login" name="submit" /></li>
-              </ul>
-            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <form action="" method="POST">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="text" name="username"></li>
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="password" name="password"></li>
+                    <li><input class="btn-signup" type="submit" value="Login" name="submit" /></li>
+                  </ul>
+                </form>
             <?php
             //code to validate and login users
             if(isset($_POST["submit"]))
@@ -93,6 +95,10 @@
                }
             }
             ?>
+          </li>
+          <li><a></a></li>
+          <li class="btn-signup"><a href= "signup.php">Sign Up</a></li>
+          </ul>
           </div>
         </div>
       </nav>
