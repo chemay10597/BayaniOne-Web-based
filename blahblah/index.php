@@ -25,17 +25,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-  		      <a class = "navbar-brand" href="index.php"><span><image src = "Images/logo.png" height= "30px" width="30px"></span><span>BayaniOne</span></a>
+  		      <a class = "navbar-brand" href="index.php"><span><image src = "../images/logo.png" height= "30px" width="30px"></span><span>BayaniOne</span></a>
+            <!-- <a class="navbar-brand" href="index.html">BayaniOne<span>.</span></a> -->
   		    </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
               <li>
                 <form action="" method="POST">
                   <ul class="nav navbar-nav navbar-right">
-                    <li><input class="form-control" style="border: 1px solid green;border-radius: 4px;" placeholder="username" type="text" name="username"></li>
-                    <li>&nbsp;</li>
-                    <li><input class="form-control" style="border: 1px solid green;border-radius: 4px;" placeholder="password" type="password" name="password"></li>
-                    <li><input id="btnlogin" type="submit" value="Login" name="submit" /></li>
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="text" name="username"></li>
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="password" name="password"></li>
+                    <li><input class="btn-signup" type="submit" value="Login" name="submit" /></li>
                   </ul>
                 </form>
                 <?php
@@ -76,9 +76,7 @@
                 ?>
               </li>
               <li><a></a></li>
-              <li>
-                  <li ><a class="btn-signup" href= "signup.php">Sign Up</a></li>
-              </li>
+              <li class="btn-signup"><a href= "signup.php">Sign Up</a></li>
             </ul>
           </div>
         </div>
@@ -148,7 +146,6 @@
   </div>
   <section id="work-shop" class="section-padding">
 
-  <center>
     <div class="container">
       <div class="row">
         <div class="header-section text-center">
@@ -156,7 +153,7 @@
             <p>The list below are the list of activities done by charities and group activities used to help people.<br></p>
             <hr class="bottom-line">
         </div>
-          <div>
+        <div>
           <?php
             //code to diplays post comment, and insert comment for individual user
             $connect=mysqli_connect("localhost","root","","bayanione_db");
@@ -171,16 +168,14 @@
             echo "<table style='width:100%;'>";
               echo "<tbody>";
                 echo "<tr>";
-            $i = 0;
-            while($row = mysqli_fetch_assoc($result) AND $i<5)
+            while($row = mysqli_fetch_assoc($result))
             {
-              $i++;
               $post_id=$row['post_id'];
               $user_id=$row['user_id'];
 
 
                       echo "<td>";
-                            echo "<img src='Uploads/",$row['post_photo'],"' width='200' height='200' />";
+                            echo "<img src='Uploads/",$row['post_photo'],"' width='175' height='200' />";
                             echo "</br>";
                             echo $row['username'];
                             echo "</br>";
@@ -193,7 +188,8 @@
             echo "</table>";
             mysqli_close($connect);
           ?>
-        </div>
+
+      </div>
     </div>
   </section>
 	    <!--/ work-shop-->
@@ -254,8 +250,6 @@
         </div>
       </div>
     </section>
-  </div>
-</center>
     <!--/Testimonial-->
     <footer id="myFooter">
       <div class="container">

@@ -69,10 +69,30 @@ Navigation bar
 
 .btn-signup a{
 	background-color: #5FCF80;
+	font-size: 15px;
 	border-radius: 25px;
 	color: #ffffff !important;
 	border: 1px solid #5FCF80;
 }
+
+#btnlogin {
+	background-color: #5FCF80;
+	border-radius: 25px;
+	height: 30px;
+	width: 90px;
+	color: #ffffff !important;
+	border: 1px solid #5FCF80;
+}
+
+#registerUser {
+	background-color: #5FCF80;
+	border-radius: 25px;
+	height: 30px;
+	width: 440px;
+	color: #ffffff !important;
+	border: 1px solid #5FCF80;
+}
+
 .btn-signup a:hover, .btn-signup a:focus{
 	border: 1px solid #5FCF80;
 	background-color: #fff;

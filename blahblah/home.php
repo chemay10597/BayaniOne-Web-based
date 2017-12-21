@@ -2,7 +2,7 @@
     //code to verify user login
     session_start();
     if(!isset($_SESSION["username"])){
-        header("location:index.php");
+        header("location:signup.php");
     } else {
 ?>
 

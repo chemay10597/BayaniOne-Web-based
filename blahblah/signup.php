@@ -54,54 +54,51 @@
               <li>
                 <form action="" method="POST">
                   <ul class="nav navbar-nav navbar-right">
-                    <li><input class="form-control" style="border: 1px solid green;border-radius: 4px;" placeholder="username" type="text" name="username"></li>
-                    <li>&nbsp;</li>
-                    <li><input class="form-control" style="border: 1px solid green;border-radius: 4px;" placeholder="password" type="password" name="password"></li>
-                    <li><input id="btnlogin" type="submit" value="Login" name="submit" /></li>
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="text" name="username"></li>
+                    <li><input style="border: 2px solid red;border-radius: 4px;" type="password" name="password"></li>
+                    <li><input class="btn-signup" type="submit" value="Login" name="submit" /></li>
                   </ul>
                 </form>
-                <?php
-                //code to validate and login users
-                if(isset($_POST["submit"]))
-                {
-                 if(!empty($_POST['username']) && !empty($_POST['password']))
+            <?php
+            //code to validate and login users
+            if(isset($_POST["submit"]))
+            {
+             if(!empty($_POST['username']) && !empty($_POST['password']))
+             {
+                 $username=$_POST['username'];
+                 $password=$_POST['password'];
+                 $connect=mysqli_connect('localhost','root','','bayanione_db') or die(mysqli_error());
+                 $result=mysqli_query($connect, "SELECT username, password FROM users WHERE username='".$username."' AND password='".$password."'");
+                 $numrows=mysqli_num_rows($result);
+                 if($numrows!=0)
                  {
-                     $username=$_POST['username'];
-                     $password=$_POST['password'];
-                     $connect=mysqli_connect('localhost','root','','bayanione_db') or die(mysqli_error());
-                     $result=mysqli_query($connect, "SELECT username, password FROM users WHERE username='".$username."' AND password='".$password."'");
-                     $numrows=mysqli_num_rows($result);
-                     if($numrows!=0)
-                     {
-                       while($row=mysqli_fetch_assoc($result))
-                     {
-                     $dbusername=$row['username'];
-                     $dbpassword=$row['password'];
-                     }
+                   while($row=mysqli_fetch_assoc($result))
+                 {
+                 $dbusername=$row['username'];
+                 $dbpassword=$row['password'];
+                 }
 
-                     if($username == $dbusername && $password == $dbpassword)
-                     {
-                       session_start();
-                       $_SESSION['username']=$username;
+                 if($username == $dbusername && $password == $dbpassword)
+                 {
+                   session_start();
+                   $_SESSION['username']=$username;
 
-                       /* Redirect browser */
-                       header("Location: home.php");
-                     }
-                     } else {
-                       echo "username and password does not match!";
-                     }
-
+                   /* Redirect browser */
+                   header("Location: home.php");
+                 }
                  } else {
-                     echo "All fields are required!";
-                   }
-                }
-                ?>
-              </li>
-              <li><a></a></li>
-              <li>
-                  <li ><a class="btn-signup" href= "signup.php">Sign Up</a></li>
-              </li>
-            </ul>
+                   echo "username and password does not match!";
+                 }
+
+             } else {
+                 echo "All fields are required!";
+               }
+            }
+            ?>
+          </li>
+          <li><a></a></li>
+          <li class="btn-signup"><a href= "signup.php">Sign Up</a></li>
+          </ul>
           </div>
         </div>
       </nav>
@@ -115,9 +112,10 @@
       </div>
       <p>We make a living by what we get, but we make a life by what we give.</p>
       <form class="modal-content animate" id="UserFormReg" name="UserFormReg" action="signup.php" method="post">
-        <fieldset class="left-form">
+        <ul class="left-form">
           <h2>Personal Information:</h2>
           </br></br></br>
+          <li>
             <?php
               //code to get user_id
               $connect=mysqli_connect("localhost","root","","bayanione_db");
@@ -137,14 +135,18 @@
               mysqli_close($connect);
             ?>
             <div class="clear"> </div>
+          </li>
+          <li>
           	<label>Type of account:</label><i>&nbsp &nbsp</i>
             <select class="input" runat="server" id="account_type" name="account_type" value="" Height="22px" Width="187px">
               <option value="">choose type ..</option>
               <option value="individual">Individual</option>
               <option value="organization">Organization</option>
             </select>
-            <li>
-            </li>
+            <a href="#" class="icon into"></a>
+            <div class="clear"> </div>
+          </li>
+          <li>
             <div id="individual_user" style="display:none;">
               <ul>
                 <li>
@@ -169,6 +171,8 @@
                   </li>
                 </ul>
               </div>
+           </li>
+           <li>
             <div id="organization_user" style="display:none;">
               <ul>
                 <li>
@@ -183,23 +187,23 @@
                 </li>
               </ul>
             </div>
-            <li>
-              <input id = "residential_address" name="residential_address" type="text" placeholder="complete address ..." required/>
-              <a href="#" class="icon into"> </a>
-              <div class="clear"> </div>
-            </li>
-            <li>
-              <input id="email_address" name="email_address" type="email" placeholder="user@domain.com" required/>
-              <a href="#" class="icon into"> </a>
-              <div class="clear"> </div>
-            </li>
-        </fieldset>
+          </li>
+          <li>
+            <input id = "residential_address" name="residential_address" type="text" placeholder="complete address ..." required/>
+            <a href="#" class="icon into"> </a>
+            <div class="clear"> </div>
+          </li>
+          <li>
+            <input id="email_address" name="email_address" type="email" placeholder="user@domain.com" required/>
+            <a href="#" class="icon into"> </a>
+            <div class="clear"> </div>
+          </li>
+        </ul>
         <ul class="right-form">
           <h3>Login Information:</h3>
           <div>
             <li>
               <center><img id="user_image" name="user_image" runat="server" height="150" width="150"/></center>
-            </br>
               <center><input type="file" id="user_photo" name="user_photo" accept="image/*" onchange="readURL(this);" required/></center>
               <!-- script to display image on select -->
               <script>
@@ -217,6 +221,8 @@
                   }
                 }
               </script>
+              <a href="#" class="icon into"> </a>
+              <div class="clear"> </div>
             </li>
               <li>
                 <input id="username" name="username" type="text" placeholder="username ..." required/>
@@ -228,7 +234,9 @@
                 <a href="#" class="icon into"> </a>
                 <div class="clear"> </div>
               </li>
+              <li>
                 <button type="submit" class="signupbtn" height="59px"width="341px" id="registerUser" name="registerUser" >Sign Up</button>
+              </li>
             </div>
             <div class="clear"> </div>
           </ul>
